@@ -26,7 +26,7 @@ function* newOwner(action) {
 // remove owner worker saga -- fires on REMOVE_OWNER
 function* removeOwner(action) {
   try {
-    const removalTarget = yield axios.delete(`/api/owners/${action.payload}`);
+    yield axios.delete(`/api/owners/${action.payload}`);
     yield put({ type: "FETCH_OWNERS" }); // reGET after delete
   } catch (error) {
     console.error(error);
