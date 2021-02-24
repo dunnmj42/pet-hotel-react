@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Box,
   Typography,
@@ -26,39 +27,6 @@ import {
   CheckCircleOutline,
 } from '@material-ui/icons';
 
-// Dummy data for building purposes
-const owners = ['Mike', 'Kevin', 'Sean', 'Woody'];
-const pets = [
-  {
-    owner: 'Kevin',
-    pet: 'Roux',
-    color: 'Golden',
-    breed: 'Golden Lab mix',
-    checked_in: null,
-  },
-  {
-    owner: 'Mike',
-    pet: 'Dave',
-    color: 'Black',
-    breed: 'Black Lab',
-    checked_in: '2/2/21',
-  },
-  {
-    owner: 'Sean',
-    pet: 'Carl',
-    color: 'White',
-    breed: 'Pomeranian',
-    checked_in: null,
-  },
-  {
-    owner: 'Woody',
-    pet: 'Bruce',
-    color: 'Brown Striped',
-    breed: 'Tabby',
-    checked_in: '2/22/21',
-  },
-];
-
 // Component styling
 const useStyles = makeStyles((theme) => ({
   inputs: {
@@ -78,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Dashboard() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const pets = useSelector((store) => store.pets);
+  const owners = useSelector((store) => store.owners);
   const [petInputs, setPetInputs] = useState({
     owner: '',
     pet: '',
@@ -85,6 +56,12 @@ function Dashboard() {
     color: '',
     checked_in: Date.now(),
   });
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_OWNERS' });
+    dispatch({ type: 'FETCH_PETS' });
+    // eslint-disable-next-line
+  }, []);
 
   const handleInputs = (key) => (event) => {
     setPetInputs({ ...petInputs, [key]: event.target.value });
@@ -186,11 +163,13 @@ function Dashboard() {
               {pets.map((item, i) => {
                 return (
                   <TableRow key={i}>
-                    <TableCell>{item.owner}</TableCell>
-                    <TableCell>{item.pet}</TableCell>
+                    <TableCell>
+                      {owners.find((owner) => owner.id === item.owner_id)?.name}
+                    </TableCell>
+                    <TableCell>{item.pet_name}</TableCell>
                     <TableCell>{item.breed}</TableCell>
                     <TableCell>{item.color}</TableCell>
-                    <TableCell>{formatDate(item.checked_in)}</TableCell>
+                    <TableCell>{formatDate(item.check_in)}</TableCell>
                     <TableCell>
                       <IconButton
                         className={classes.tableButtons}
