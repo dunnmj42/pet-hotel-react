@@ -98,7 +98,7 @@ function Dashboard() {
         <TextField
           className={classes.inputs}
           label="Pet Name"
-          onChange={handleInputs('pet')}
+          onChange={handleInputs('pet_name')}
         />
         <TextField
           className={classes.inputs}
@@ -115,7 +115,7 @@ function Dashboard() {
           <Select
             labelId="owner-label"
             value={petInputs.owner}
-            onChange={handleInputs('owner')}
+            onChange={handleInputs('owner_id')}
           >
             {owners[0] &&
               owners.map((item, i) => {
