@@ -38,7 +38,10 @@ function ManageOwners() {
   const owners = useSelector((store) => store.owners);
   const [owner, setOwner] = useState('');
 
-  useEffect(() => dispatch({ type: 'FETCH_OWNERS' }), []);
+  useEffect(() => {
+    dispatch({ type: 'FETCH_OWNERS' });
+    // eslint-disable-next-line
+  }, []);
 
   const handleInput = (event) => {
     setOwner(event.target.value);
@@ -85,8 +88,8 @@ function ManageOwners() {
             <TableBody>
               {owners.map((item) => {
                 return (
-                  <TableRow key={item[0]}>
-                    <TableCell>{item[1]}</TableCell>
+                  <TableRow key={item.id}>
+                    <TableCell>{item.name}</TableCell>
                     <TableCell>pets go here</TableCell>
                     <TableCell>
                       <IconButton onClick={handleDelete} size="small">
