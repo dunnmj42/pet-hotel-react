@@ -5,7 +5,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 // fires on FETCH_OWNERS
 function* fetchOwners() {
   try {
-    const owners = yield axios.get('/api/owners/all'); // fire
+    const owners = yield axios.get('/api/owners/'); // fire
     yield put({ type: 'SET_OWNERS', payload: owners.data });
   } catch (error) {
     console.error(error);
