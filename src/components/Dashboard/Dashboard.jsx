@@ -99,32 +99,34 @@ function Dashboard() {
           className={classes.inputs}
           label="Pet Name"
           onChange={handleInputs('pet_name')}
+          value={petInputs.pet_name}
         />
         <TextField
           className={classes.inputs}
           label="Breed"
           onChange={handleInputs('breed')}
+          value={petInputs.breed}
         />
         <TextField
           className={classes.inputs}
           label="Color"
           onChange={handleInputs('color')}
+          value={petInputs.color}
         />
         <FormControl className={classes.inputs}>
           <InputLabel id="owner-label">Owner</InputLabel>
           <Select
             labelId="owner-label"
-            value={petInputs.owner}
+            value={petInputs.owner_id}
             onChange={handleInputs('owner_id')}
           >
-            {owners[0] &&
-              owners.map((item, i) => {
-                return (
-                  <MenuItem key={i} value={item.id}>
-                    {item.name}
-                  </MenuItem>
-                );
-              })}
+            {owners.map((item, i) => {
+              return (
+                <MenuItem key={i} value={item.id}>
+                  {item.name}
+                </MenuItem>
+              );
+            })}
           </Select>
         </FormControl>
         <Button
