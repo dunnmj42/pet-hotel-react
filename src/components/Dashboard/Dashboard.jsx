@@ -81,8 +81,8 @@ function Dashboard() {
     dispatch({ type: 'REMOVE_PET', payload: id });
   };
 
-  const handleCheckInOut = (pet) => {
-    dispatch({ type: 'EDIT_PET', payload: pet });
+  const handleCheckInOut = (id) => {
+    dispatch({ type: 'EDIT_PET', payload: id });
   };
 
   const handleSubmit = () => {
@@ -180,7 +180,7 @@ function Dashboard() {
                         className={classes.tableButtons}
                         variant="outlined"
                         size="small"
-                        onClick={() => handleCheckInOut(item)}
+                        onClick={() => handleCheckInOut(item.id)}
                       >
                         {item.check_in ? (
                           <Tooltip title="Check Out">

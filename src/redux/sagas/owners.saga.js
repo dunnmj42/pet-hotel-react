@@ -5,7 +5,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 // fires on FETCH_OWNERS
 function* fetchOwners() {
   try {
-    const owners = yield axios.get('/api/owners/'); // fire
+    const owners = yield axios.get('/api/owners'); // fire
     yield put({ type: 'SET_OWNERS', payload: owners.data });
   } catch (error) {
     console.error(error);
@@ -16,7 +16,7 @@ function* fetchOwners() {
 function* newOwner(action) {
   try {
     const ownerToAdd = action.payload;
-    yield axios.post('/api/owners/', ownerToAdd);
+    yield axios.post('/api/owners', ownerToAdd);
     yield put({ type: 'FETCH_OWNERS' }); // GET owners on add
   } catch (error) {
     console.error(error);

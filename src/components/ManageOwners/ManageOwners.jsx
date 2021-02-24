@@ -99,7 +99,7 @@ function ManageOwners() {
                 return (
                   <TableRow key={item.id}>
                     <TableCell>{item.name}</TableCell>
-                    <TableCell>pets go here</TableCell>
+                    <TableCell>{item.count}</TableCell>
                     <TableCell>
                       <IconButton
                         onClick={() => handleDelete(item.id)}
