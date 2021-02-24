@@ -36,7 +36,7 @@ function ManageOwners() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const owners = useSelector((store) => store.owners);
-  const [owner, setOwner] = useState('');
+  const [newOwner, setNewOwner] = useState('');
 
   useEffect(() => {
     dispatch({ type: 'FETCH_OWNERS' });
@@ -44,11 +44,15 @@ function ManageOwners() {
   }, []);
 
   const handleInput = (event) => {
-    setOwner(event.target.value);
+    setNewOwner(event.target.value);
   };
 
-  const handleDelete = () => {
-    console.log('clicked handleDelete');
+  const handleSubmit = () => {
+    dispatch({ type: 'NEW_OWNER', payload: newOwner });
+  };
+
+  const handleDelete = (id) => {
+    dispatch({ type: 'REMOVE_OWNER', payload: id });
   };
 
   return (
@@ -60,10 +64,15 @@ function ManageOwners() {
         <TextField
           className={classes.inputs}
           label="Owner Name"
-          value={owner}
+          value={newOwner}
           onChange={handleInput}
         />
-        <Button variant="outlined" color="primary" endIcon={<Add />}>
+        <Button
+          variant="outlined"
+          color="primary"
+          endIcon={<Add />}
+          onClick={handleSubmit}
+        >
           Add Owner
         </Button>
       </Box>
@@ -92,7 +101,10 @@ function ManageOwners() {
                     <TableCell>{item.name}</TableCell>
                     <TableCell>pets go here</TableCell>
                     <TableCell>
-                      <IconButton onClick={handleDelete} size="small">
+                      <IconButton
+                        onClick={() => handleDelete(item.id)}
+                        size="small"
+                      >
                         <Tooltip title="Delete">
                           <Close fontSize="small" />
                         </Tooltip>

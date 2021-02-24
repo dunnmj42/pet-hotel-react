@@ -50,11 +50,10 @@ function Dashboard() {
   const pets = useSelector((store) => store.pets);
   const owners = useSelector((store) => store.owners);
   const [petInputs, setPetInputs] = useState({
-    owner: '',
-    pet: '',
+    owner_id: '',
+    pet_name: '',
     breed: '',
     color: '',
-    checked_in: Date.now(),
   });
 
   useEffect(() => {
@@ -78,12 +77,16 @@ function Dashboard() {
     }
   };
 
-  const handleDelete = () => {
-    console.log('clicked handleDelete');
+  const handleDelete = (id) => {
+    dispatch({ type: 'REMOVE_PET', payload: id });
   };
 
-  const handleCheckInOut = () => {
-    console.log('clicked handleCheckInOut');
+  const handleCheckInOut = (pet) => {
+    dispatch({ type: 'EDIT_PET', payload: pet });
+  };
+
+  const handleSubmit = () => {
+    dispatch({ type: 'NEW_PET', payload: petInputs });
   };
 
   return (
@@ -114,13 +117,14 @@ function Dashboard() {
             value={petInputs.owner}
             onChange={handleInputs('owner')}
           >
-            {owners.map((item, i) => {
-              return (
-                <MenuItem key={i} value={item}>
-                  {item}
-                </MenuItem>
-              );
-            })}
+            {owners[0] &&
+              owners.map((item, i) => {
+                return (
+                  <MenuItem key={i} value={item.id}>
+                    {item.name}
+                  </MenuItem>
+                );
+              })}
           </Select>
         </FormControl>
         <Button
@@ -128,6 +132,7 @@ function Dashboard() {
           className={classes.inputs}
           color="primary"
           endIcon={<Add />}
+          onClick={handleSubmit}
         >
           Add Pet
         </Button>
@@ -160,9 +165,9 @@ function Dashboard() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {pets.map((item, i) => {
+              {pets.map((item) => {
                 return (
-                  <TableRow key={i}>
+                  <TableRow key={item.id}>
                     <TableCell>
                       {owners.find((owner) => owner.id === item.owner_id)?.name}
                     </TableCell>
@@ -175,9 +180,9 @@ function Dashboard() {
                         className={classes.tableButtons}
                         variant="outlined"
                         size="small"
-                        onClick={handleCheckInOut}
+                        onClick={() => handleCheckInOut(item)}
                       >
-                        {item.checked_in ? (
+                        {item.check_in ? (
                           <Tooltip title="Check Out">
                             <CheckCircle color="primary" fontSize="small" />
                           </Tooltip>
@@ -189,7 +194,7 @@ function Dashboard() {
                       </IconButton>
                       <IconButton
                         className={classes.tableButtons}
-                        onClick={handleDelete}
+                        onClick={() => handleDelete(item.id)}
                         size="small"
                       >
                         <Tooltip title="Delete">
