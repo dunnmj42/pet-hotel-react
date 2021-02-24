@@ -40,8 +40,8 @@ const pets = [
     owner: 'Mike',
     pet: 'Dave',
     color: 'Black',
-    breed: 'Black lab',
-    checked_in: '1/2/21',
+    breed: 'Black Lab',
+    checked_in: '2/2/21',
   },
   {
     owner: 'Sean',
@@ -83,7 +83,7 @@ function Dashboard() {
     pet: '',
     breed: '',
     color: '',
-    checked_in: '',
+    checked_in: Date.now(),
   });
 
   const handleInputs = (key) => (event) => {
@@ -137,8 +137,12 @@ function Dashboard() {
             value={petInputs.owner}
             onChange={handleInputs('owner')}
           >
-            {owners.map((item) => {
-              return <MenuItem value={item}>{item}</MenuItem>;
+            {owners.map((item, i) => {
+              return (
+                <MenuItem key={i} value={item}>
+                  {item}
+                </MenuItem>
+              );
             })}
           </Select>
         </FormControl>
@@ -179,9 +183,9 @@ function Dashboard() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {pets.map((item) => {
+              {pets.map((item, i) => {
                 return (
-                  <TableRow>
+                  <TableRow key={i}>
                     <TableCell>{item.owner}</TableCell>
                     <TableCell>{item.pet}</TableCell>
                     <TableCell>{item.breed}</TableCell>

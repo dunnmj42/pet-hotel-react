@@ -13,7 +13,7 @@ import {
   TableHead,
   Paper,
   IconButton,
-  Tooltip
+  Tooltip,
 } from '@material-ui/core';
 import { Close, Add } from '@material-ui/icons';
 
@@ -49,7 +49,7 @@ function ManageOwners() {
 
   const handleDelete = () => {
     console.log('clicked handleDelete');
-  }
+  };
 
   return (
     <>
@@ -86,9 +86,9 @@ function ManageOwners() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {owners.map((item) => {
+              {owners.map((item, i) => {
                 return (
-                  <TableRow>
+                  <TableRow key={i}>
                     <TableCell>{item.owner}</TableCell>
                     <TableCell>{item.pets}</TableCell>
                     <TableCell>
