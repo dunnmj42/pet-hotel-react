@@ -20,16 +20,13 @@ const middlewareList =
     ? [sagaMiddleware, logger]
     : [sagaMiddleware];
 
+// root store
 const store = createStore(
-  // tells the saga middleware to use the rootReducer
-  // rootSaga contains all of our other reducers
   rootReducer,
-  // adds all middleware to our project including saga and logger
   applyMiddleware(...middlewareList)
 );
 
-// tells the saga middleware to use the rootSaga
-// rootSaga contains all of our other sagas
+// apply middleware
 sagaMiddleware.run(rootSaga);
 
 
