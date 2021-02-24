@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   TextField,
@@ -17,14 +18,6 @@ import {
 } from '@material-ui/core';
 import { Close, Add } from '@material-ui/icons';
 
-// Dummy data for building purposes
-const owners = [
-  { owner: 'Mike', pets: 2 },
-  { owner: 'Kevin', pets: 1 },
-  { owner: 'Sean', pets: 4 },
-  { owner: 'Woody', pets: 1 },
-];
-
 // Component styling
 const useStyles = makeStyles((theme) => ({
   inputs: {
@@ -40,8 +33,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ManageOwners() {
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const owners = useSelector((store) => store.owners);
   const [owner, setOwner] = useState('');
+
+  useEffect(() => dispatch({ type: 'FETCH_OWNERS' }), []);
 
   const handleInput = (event) => {
     setOwner(event.target.value);
@@ -86,11 +83,11 @@ function ManageOwners() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {owners.map((item, i) => {
+              {owners.map((item) => {
                 return (
-                  <TableRow key={i}>
-                    <TableCell>{item.owner}</TableCell>
-                    <TableCell>{item.pets}</TableCell>
+                  <TableRow key={item[0]}>
+                    <TableCell>{item[1]}</TableCell>
+                    <TableCell>pets go here</TableCell>
                     <TableCell>
                       <IconButton onClick={handleDelete} size="small">
                         <Tooltip title="Delete">
