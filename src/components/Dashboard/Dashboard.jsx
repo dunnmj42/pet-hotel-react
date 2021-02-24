@@ -117,8 +117,8 @@ function Dashboard() {
           <InputLabel id="owner-label">Owner</InputLabel>
           <Select
             labelId="owner-label"
-            value={petInputs.owner_id}
             onChange={handleInputs('owner_id')}
+            value={petInputs.owner_id}
           >
             {owners.map((item, i) => {
               return (
