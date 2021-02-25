@@ -26,7 +26,7 @@ function* newPet(action) {
 // edit worker saga -- fires on EDIT_PET
 function* editPet(action) {
   try {
-    yield axios.put(`/api/pets/?id=${action.payload}`); // send PUT
+    yield axios.put(`/api/pets/${action.payload}`); // send PUT
     yield put({ type: 'FETCH_PETS' }); // reGET after PUT
   } catch (error) {
     console.error(error);
@@ -36,7 +36,7 @@ function* editPet(action) {
 // remove pet worker saga -- fires on REMOVE_PET
 function* removePet(action) {
   try {
-    yield axios.delete(`/api/pets/?id=${action.payload}`);
+    yield axios.delete(`/api/pets/${action.payload}`);
     yield put({ type: 'FETCH_PETS' }); // reGET after delete
   } catch (error) {
     console.error(error);
