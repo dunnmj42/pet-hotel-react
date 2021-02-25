@@ -16,7 +16,7 @@ function* fetchOwners() {
 function* newOwner(action) {
   try {
     const ownerToAdd = action.payload;
-    yield axios.post('/api/owners', ownerToAdd);
+    yield axios.post('/api/owners', {name: ownerToAdd});
     yield put({ type: 'FETCH_OWNERS' }); // GET owners on add
   } catch (error) {
     console.error(error);
