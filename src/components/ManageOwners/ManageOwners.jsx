@@ -49,6 +49,7 @@ function ManageOwners() {
 
   const handleSubmit = () => {
     dispatch({ type: 'NEW_OWNER', payload: newOwner });
+    setNewOwner('');
   };
 
   const handleDelete = (id) => {
@@ -99,7 +100,7 @@ function ManageOwners() {
                 return (
                   <TableRow key={item.id}>
                     <TableCell>{item.name}</TableCell>
-                    <TableCell>{item.count}</TableCell>
+                    <TableCell>{item.pet_count}</TableCell>
                     <TableCell>
                       <IconButton
                         onClick={() => handleDelete(item.id)}
