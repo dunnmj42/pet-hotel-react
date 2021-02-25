@@ -26,7 +26,7 @@ function* newPet(action) {
 // edit worker saga -- fires on EDIT_PET
 function* editPet(action) {
   try {
-    yield axios.put(`/api/pets/${action.payload}`); // send PUT
+    yield axios.put('/api/pets/edit', action.payload); // send PUT
     yield put({ type: 'FETCH_PETS' }); // reGET after PUT
   } catch (error) {
     console.error(error);

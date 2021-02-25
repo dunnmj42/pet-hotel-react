@@ -81,12 +81,20 @@ function Dashboard() {
     dispatch({ type: 'REMOVE_PET', payload: id });
   };
 
-  const handleCheckInOut = (id) => {
-    dispatch({ type: 'EDIT_PET', payload: id });
+  const handleCheckInOut = (pet) => {
+    const status = pet.check_in ? null : new Date();
+    console.log(status);
+    dispatch({ type: 'EDIT_PET', payload: { id: pet.id, status } });
   };
 
   const handleSubmit = () => {
     dispatch({ type: 'NEW_PET', payload: petInputs });
+    setPetInputs({
+      owner_id: '',
+      pet_name: '',
+      breed: '',
+      color: '',
+    });
   };
 
   return (
@@ -182,7 +190,7 @@ function Dashboard() {
                         className={classes.tableButtons}
                         variant="outlined"
                         size="small"
-                        onClick={() => handleCheckInOut(item.id)}
+                        onClick={() => handleCheckInOut(item)}
                       >
                         {item.check_in ? (
                           <Tooltip title="Check Out">
